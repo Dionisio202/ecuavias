@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BusImage from "../assets/bus-login.png"; // Importa la imagen correctamente
 import logo from "../assets/logo-ecuavias.png";
-
+import { Link } from "react-router-dom"; // Importa Link
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -121,12 +121,12 @@ const Login: React.FC = () => {
 
           {/* Forgot Password */}
           <div className="text-center">
-            <a
-              href="/forgot-password"
+          <Link
+              to="/forgot-password" // Redirige a la ruta de ForgotPassword
               className="text-sm text-gray-500 hover:underline"
             >
               ¿Has olvidado tu contraseña?
-            </a>
+            </Link>
           </div>
         </div>
       </div>

@@ -2,13 +2,16 @@ import React, { useState } from "react";
 import BusImage from "../assets/bus-login.png"; // Importa la imagen correctamente
 import logo from "../assets/logo-ecuavias.png";
 import { Link } from "react-router-dom"; // Importa Link
+
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>({
-    email: "",
-    password: "",
-  });
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
+    {
+      email: "",
+      password: "",
+    }
+  );
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -119,14 +122,23 @@ const Login: React.FC = () => {
             </div>
           </form>
 
-          {/* Forgot Password */}
+          {/* Forgot Password and Register */}
           <div className="text-center">
-          <Link
+            <Link
               to="/forgot-password" // Redirige a la ruta de ForgotPassword
-              className="text-sm text-gray-500 hover:underline"
+              className="text-sm text-gray-500 hover:underline block mb-4"
             >
               ¿Has olvidado tu contraseña?
             </Link>
+            <p className="text-sm text-gray-600">
+              ¿Aún no tienes cuenta?{" "}
+              <Link
+                to="/register" // Redirige a la ruta de registro
+                className="text-primary font-medium hover:underline"
+              >
+                Regístrate
+              </Link>
+            </p>
           </div>
         </div>
       </div>

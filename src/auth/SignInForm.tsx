@@ -1,20 +1,24 @@
 import React, { useState } from "react";
 import BusImage from "../assets/bus-login.png"; // Importa la imagen correctamente
 import logo from "../assets/logo-ecuavias.png";
-import { Link } from "react-router-dom"; // Importa Link
+import { Link } from "react-router-dom";
+import { supabase } from "../supabaseClient"; // Importa el cliente de Supabase
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-  const [errors, setErrors] = useState<{ email?: string; password?: string }>(
-    {
-      email: "",
-      password: "",
-    }
-  );
+  const [errors, setErrors] = useState<{ email?: string; password?: string }>({
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState<boolean>(false); // Estado para manejar el loading
+  const [message, setMessage] = useState<string>(""); // Mensajes de éxito o error
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setErrors({}); // Resetea los errores
+    setMessage(""); // Resetea los mensajes
+    setLoading(true); // Activa el estado de carga
 
     let valid = true;
     const newErrors: { email?: string; password?: string } = {};
@@ -35,8 +39,27 @@ const Login: React.FC = () => {
     setErrors(newErrors);
 
     if (valid) {
-      console.log("Email:", email, "Password:", password);
-      // Aquí puedes enviar los datos al backend o realizar otra acción
+      try {
+        // Llamar al método de inicio de sesión de Supabase
+        const { error } = await supabase.auth.signInWithPassword({
+          email,
+          password,
+        });
+
+        if (error) {
+          setMessage(`Error: ${error.message}`);
+        } else {
+          setMessage("Inicio de sesión exitoso.");
+          // Redirige al usuario a otra página si es necesario
+          // Ejemplo: window.location.href = '/dashboard';
+        }
+      } catch (err) {
+        setMessage("Hubo un problema inesperado. Por favor, intenta nuevamente.");
+      } finally {
+        setLoading(false); // Detiene el estado de carga
+      }
+    } else {
+      setLoading(false);
     }
   };
 
@@ -46,7 +69,7 @@ const Login: React.FC = () => {
       <div
         className="hidden lg:flex lg:w-1/2 bg-cover bg-center"
         style={{
-          backgroundImage: `url(${BusImage})`, // Usa la imagen importada
+          backgroundImage: `url(${BusImage})`,
         }}
       ></div>
 
@@ -57,9 +80,9 @@ const Login: React.FC = () => {
           <div className="flex items-center justify-center space-x-4 mb-11">
             <h2 className="text-3xl text-gray-800">Inicio de Sesión</h2>
             <img
-              src={logo} // Usa la imagen importada
+              src={logo}
               alt="Ecuavías"
-              className="h-20" // Ajusta el tamaño del logo si es necesario
+              className="h-20"
             />
           </div>
 
@@ -115,17 +138,23 @@ const Login: React.FC = () => {
             <div className="mb-4 flex justify-center">
               <button
                 type="submit"
-                className="w-64 p-3 text-white bg-gray-800 hover:bg-gray-700 rounded-lg"
+                className={`w-64 p-3 text-white bg-gray-800 hover:bg-gray-700 rounded-lg ${
+                  loading ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+                disabled={loading} // Deshabilitar mientras carga
               >
-                Iniciar sesión
+                {loading ? "Iniciando..." : "Iniciar sesión"}
               </button>
             </div>
+
+            {/* Success/Error Message */}
+            {message && <p className="text-center text-sm text-red-500">{message}</p>}
           </form>
 
           {/* Forgot Password and Register */}
           <div className="text-center">
             <Link
-              to="/forgot-password" // Redirige a la ruta de ForgotPassword
+              to="/forgot-password"
               className="text-sm text-gray-500 hover:underline block mb-4"
             >
               ¿Has olvidado tu contraseña?
@@ -133,7 +162,7 @@ const Login: React.FC = () => {
             <p className="text-sm text-gray-600">
               ¿Aún no tienes cuenta?{" "}
               <Link
-                to="/register" // Redirige a la ruta de registro
+                to="/register"
                 className="text-primary font-medium hover:underline"
               >
                 Regístrate

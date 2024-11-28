@@ -1,0 +1,46 @@
+<svg
+  width="176"
+  height="32"
+  viewBox="0 0 176 32"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <!-- Fondo del logo -->
+  <rect x="0" y="0" width="176" height="32" fill="#121212" />
+  
+  <!-- Contenedor para el texto azul -->
+  <rect
+    x="0"
+    y="4"
+    width="46"
+    height="26"
+    rx="4"
+    fill="#3C50E0"
+  />
+  
+  <!-- Texto del cuadro azul -->
+  <text
+    x="12"
+    y="23"
+    fill="white"
+    font-family="Arial, sans-serif"
+    font-size="20"
+    font-weight="bold"
+    text-anchor="start"
+  >
+    EC
+  </text>
+
+  <!-- Texto principal -->
+  <text
+    x="52"
+    y="24"
+    fill="white"
+    font-family="Arial, sans-serif"
+    font-size="22"
+    font-weight="bold"
+    text-anchor="start"
+  >
+    Ecuavías
+  </text>
+</svg>

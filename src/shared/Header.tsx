@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import User06 from "../assets/user-06.png";
+import { supabase } from "../supabaseClient";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const [sidebarToggle, setSidebarToggle] = useState<boolean>(false);
@@ -8,7 +10,7 @@ const Header: React.FC = () => {
 
   return (
     <header className="sticky top-0 z-[999] flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-      <div className="flex flex-grow items-center justify-endh px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+      <div className="flex flex-grow items-center justify-end px-4 py-4 shadow-2 md:px-6 2xl:px-11">
         {/* Hamburger Toggle */}
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           <button
@@ -35,9 +37,6 @@ const Header: React.FC = () => {
               </span>
             </span>
           </button>
-          <a className="block flex-shrink-0 lg:hidden" href="index.html">
-            <img src="./images/logo/logo-icon.svg" alt="Logo" />
-          </a>
         </div>
 
         {/* Right Actions */}
@@ -67,13 +66,9 @@ const Header: React.FC = () => {
 
           {/* User Area */}
           <div className="relative">
-            <a
+            <button
               className="flex items-center gap-4"
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                setDropdownOpen(!dropdownOpen);
-              }}
+              onClick={() => setDropdownOpen(!dropdownOpen)}
             >
               <span className="hidden text-right lg:block">
                 <span className="block text-sm font-medium text-black dark:text-black">
@@ -84,32 +79,39 @@ const Header: React.FC = () => {
               <span className="h-12 w-12 rounded-full">
                 <img src={User06} alt="User" />
               </span>
-            </a>
+            </button>
 
             {/* Dropdown */}
             {dropdownOpen && (
               <div className="absolute right-0 mt-4 flex w-62.5 flex-col rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <ul className="flex flex-col gap-5 border-b px-6 py-7.5">
                   <li>
-                    <a
-                      href="profile.html"
+                    <Link
+                      to="/profile"
                       className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
                       My Profile
-                    </a>
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      href="settings.html"
+                    <Link
+                      to="/settings"
                       className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
                       Account Settings
-                    </a>
+                    </Link>
                   </li>
                 </ul>
                 <button
                   className="flex items-center gap-3.5 px-6 py-4 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
-                  onClick={() => console.log("Log out")}
+                  onClick={async () => {
+                    const { error } = await supabase.auth.signOut();
+                    if (!error) {
+                      window.location.href = "/";
+                    } else {
+                      console.error("Error al cerrar sesión:", error);
+                    }
+                  }}
                 >
                   Log Out
                 </button>

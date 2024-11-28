@@ -4,7 +4,74 @@ import logo from "../assets/logo.svg";
 
 const Sidebar = () => {
   const [sidebarToggle, setSidebarToggle] = useState(false);
-  const [selected, setSelected] = useState("");
+  const [selected, setSelected] = useState<string>("");
+
+  // Configuración dinámica del menú
+  const menuItems = [
+    {
+      title: "Usuarios",
+      key: "Dashboard",
+      icon: (
+        <svg
+          className="ml-auto h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M12 14.828l-4.95-4.95a.75.75 0 111.06-1.06L12 12.707l3.89-3.89a.75.75 0 111.06 1.06l-4.95 4.95z"
+            clipRule="evenodd"
+          />
+        </svg>
+      ),
+      subItems: [
+        { title: "Perfil", to: "/profile" },
+      ],
+    },
+    {
+      title: "Buses",
+      key: "Buses",
+      icon: (
+        <svg
+          className="ml-auto h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M12 14.828l-4.95-4.95a.75.75 0 111.06-1.06L12 12.707l3.89-3.89a.75.75 0 111.06 1.06l-4.95 4.95z"
+            clipRule="evenodd"
+          />
+        </svg>
+      ),
+      subItems: [
+        { title: "Asientos", to: "/Asientos" },
+      ],
+    },
+    {
+      title: "Reservaciones",
+      key: "Reservaciones",
+      icon: (
+        <svg
+          className="ml-auto h-6 w-6"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+        >
+          <path
+            fillRule="evenodd"
+            d="M12 14.828l-4.95-4.95a.75.75 0 111.06-1.06L12 12.707l3.89-3.89a.75.75 0 111.06 1.06l-4.95 4.95z"
+            clipRule="evenodd"
+          />
+        </svg>
+      ),
+      subItems: [
+        { title: "Lista de Reservaciones", to: "/ListaReservaciones" },
+      ],
+    },
+  ];
 
   const handleOutsideClick = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     if (!e.currentTarget.contains(e.target as Node)) {
@@ -51,148 +118,47 @@ const Sidebar = () => {
       {/* Sidebar Content */}
       <div className="no-scrollbar flex flex-col overflow-y-auto duration-300 ease-linear">
         <nav className="mt-5 px-4 py-4 lg:mt-9 lg:px-6">
-          {/* Menu Group */}
-          <div>
-            <h3
-              className="mb-4 ml-4 text-sm font-medium"
-              style={{ color: "#DEE4EE" }}
-            >
-              MENU
-            </h3>
-            <ul className="mb-6 flex flex-col gap-1.5">
-              {/* Menu Item Usuarios */}
-              <li>
+          <h3
+            className="mb-4 ml-4 text-sm font-medium"
+            style={{ color: "#DEE4EE" }}
+          >
+            MENU
+          </h3>
+          <ul className="mb-6 flex flex-col gap-1.5">
+            {menuItems.map((menuItem) => (
+              <li key={menuItem.key}>
                 <Link
                   className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-cyan-50 duration-300 ease-in-out ${
-                    selected === "Dashboard"
+                    selected === menuItem.key
                       ? "bg-[rgba(128,128,128,0.5)] hover:bg-[rgba(128,128,128,0.5)]"
                       : "hover:bg-[rgba(128,128,128,0.5)]"
                   }`}
                   to="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    setSelected(selected === "Dashboard" ? "" : "Dashboard");
+                    setSelected(selected === menuItem.key ? "" : menuItem.key);
                   }}
                 >
-                  Usuarios
-                  <svg
-                    className={`ml-auto h-6 w-6 transition-transform duration-300 ${
-                      selected === "Dashboard" ? "rotate-180" : "rotate-0"
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 14.828l-4.95-4.95a.75.75 0 111.06-1.06L12 12.707l3.89-3.89a.75.75 0 111.06 1.06l-4.95 4.95z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  {menuItem.title}
+                  {menuItem.icon}
                 </Link>
-                {selected === "Dashboard" && (
+                {selected === menuItem.key && (
                   <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-                    <li>
-                      <Link
-                        className="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-cyan-50 duration-300 ease-in-out hover:text-white"
-                        to="/Perfil"
-                      >
-                        Perfil
-                      </Link>
-                    </li>
+                    {menuItem.subItems.map((subItem, idx) => (
+                      <li key={idx}>
+                        <Link
+                          className="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-cyan-50 duration-300 ease-in-out hover:text-white"
+                          to={subItem.to}
+                        >
+                          {subItem.title}
+                        </Link>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </li>
-              {/* Menu Item Buses */}
-              <li>
-                <Link
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-cyan-50 duration-300 ease-in-out ${
-                    selected === "Buses"
-                      ? "bg-[rgba(128,128,128,0.5)] hover:bg-[rgba(128,128,128,0.5)]"
-                      : "hover:bg-[rgba(128,128,128,0.5)]"
-                  }`}
-                  to="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelected(selected === "Buses" ? "" : "Buses");
-                  }}
-                >
-                  Buses
-                  <svg
-                    className={`ml-auto h-6 w-6 transition-transform duration-300 ${
-                      selected === "Buses" ? "rotate-180" : "rotate-0"
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 14.828l-4.95-4.95a.75.75 0 111.06-1.06L12 12.707l3.89-3.89a.75.75 0 111.06 1.06l-4.95 4.95z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
-                {selected === "Buses" && (
-                  <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-                    <li>
-                      <Link
-                        className="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-cyan-50 duration-300 ease-in-out hover:text-white"
-                        to="/Asientos"
-                      >
-                        Asientos
-                      </Link>
-                    </li>
-                  </ul>
-                )}
-              </li>
-              {/* Menu Item Reservaciones */}
-              <li>
-                <Link
-                  className={`group relative flex items-center gap-2.5 rounded-sm px-4 py-2 font-medium text-cyan-50 duration-300 ease-in-out ${
-                    selected === "Reservaciones"
-                      ? "bg-[rgba(128,128,128,0.5)] hover:bg-[rgba(128,128,128,0.5)]"
-                      : "hover:bg-[rgba(128,128,128,0.5)]"
-                  }`}
-                  to="#"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    setSelected(
-                      selected === "Reservaciones" ? "" : "Reservaciones"
-                    );
-                  }}
-                >
-                  Reservaciones
-                  <svg
-                    className={`ml-auto h-6 w-6 transition-transform duration-300 ${
-                      selected === "Reservaciones" ? "rotate-180" : "rotate-0"
-                    }`}
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M12 14.828l-4.95-4.95a.75.75 0 111.06-1.06L12 12.707l3.89-3.89a.75.75 0 111.06 1.06l-4.95 4.95z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                </Link>
-                {selected === "Reservaciones" && (
-                  <ul className="mb-5.5 mt-4 flex flex-col gap-2.5 pl-6">
-                    <li>
-                      <Link
-                        className="group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-cyan-50 duration-300 ease-in-out hover:text-white"
-                        to="/ListaReservaciones"
-                      >
-                        Lista de Reservaciones
-                      </Link>
-                    </li>
-                  </ul>
-                )}
-              </li>
-            </ul>
-          </div>
+            ))}
+          </ul>
         </nav>
       </div>
     </aside>

@@ -50,8 +50,8 @@ const Login: React.FC = () => {
           setMessage(`Error: ${error.message}`);
         } else {
           setMessage("Inicio de sesión exitoso.");
-          // Redirige al usuario a otra página si es necesario
-          // Ejemplo: window.location.href = '/dashboard';
+          // Redirigir a la página de perfil
+          window.location.href = "/profile";
         }
       } catch (err) {
         setMessage("Hubo un problema inesperado. Por favor, intenta nuevamente.");

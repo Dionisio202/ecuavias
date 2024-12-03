@@ -25,6 +25,11 @@ const Header: React.FC = () => {
           Lista de usuarios
         </span>
       )}
+        {location.pathname === "/user-settings" && (
+        <span className="text-2xl font-medium text-black dark:text-black">
+          Configuración de usuario
+        </span>
+      )}
         </div>
 
         {/* Hamburger Toggle */}
@@ -88,9 +93,9 @@ const Header: React.FC = () => {
             >
               <span className="hidden text-right lg:block">
                 <span className="block text-sm font-medium text-black dark:text-black">
-                  Thomas Anree
+                  Edison Ortiz
                 </span>
-                <span className="block text-xs font-medium">UX Designer</span>
+                <span className="block text-xs font-medium">Admin</span>
               </span>
               <span className="h-12 w-12 rounded-full">
                 <img src={User06} alt="User" />
@@ -111,7 +116,7 @@ const Header: React.FC = () => {
                   </li>
                   <li>
                     <Link
-                      to="/settings"
+                      to="/user-settings"
                       className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
                       Configuración

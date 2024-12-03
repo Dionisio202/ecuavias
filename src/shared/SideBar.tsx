@@ -19,7 +19,8 @@ const Sidebar = () => {
       key: "Usuarios",
       icon: <img src={UserIcon} alt="Usuarios" className="w-6 h-6" />, // Ícono personalizado
       subItems: [{ title: "Perfil", to: "/profile" },
-        { title: "Gestión", to: "/gestion-usuarios" }
+        { title: "Gestión", to: "/gestion-usuarios" },
+        { title: "Configuración", to: "/user-settings" }
       ],
     },
     {

@@ -3,8 +3,7 @@ import { Pagination, PaginationItem } from "@mui/material";
 import TrashIcon from "../assets/Trash.svg";
 import ArrowBackIcon from "../assets/arrowback.svg";
 import ArrowNextIcon from "../assets/nextarrow.svg";
-import AddUserModal from "./AddUserModal"; // Importa el modal
-
+import EditIcon from "../assets/edit.svg";
 interface User {
   id: number;
   tipoDocumento: string;
@@ -187,12 +186,12 @@ const UserTable: React.FC<UserTableProps> = ({
                   </span>
                 </td>
                 <td className="px-4 py-2">
-                  <button
-                    onClick={() => onEditUser(user)} // Llama a la función de edición
-                    className="text-blue-500 hover:underline"
-                  >
-                    Editar
-                  </button>
+                <button
+    onClick={() => onEditUser(user)} // Llama a la función de edición
+    className="flex items-center justify-center w-8 h-8 bg-transparent hover:bg-gray-200 rounded-full"
+  >
+    <img src={EditIcon} alt="Edit" className="w-5 h-5" />
+  </button>
                 </td>
               </tr>
             ))}

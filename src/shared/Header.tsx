@@ -20,6 +20,11 @@ const Header: React.FC = () => {
               Perfil
             </span>
           )}
+             {location.pathname === "/gestion-usuarios" && (
+        <span className="text-2xl font-medium text-black dark:text-black">
+          Lista de usuarios
+        </span>
+      )}
         </div>
 
         {/* Hamburger Toggle */}
@@ -101,7 +106,7 @@ const Header: React.FC = () => {
                       to="/profile"
                       className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
-                      My Profile
+                      Mi Perfil
                     </Link>
                   </li>
                   <li>
@@ -109,7 +114,7 @@ const Header: React.FC = () => {
                       to="/settings"
                       className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
-                      Account Settings
+                      Configuración
                     </Link>
                   </li>
                 </ul>
@@ -124,7 +129,7 @@ const Header: React.FC = () => {
                     }
                   }}
                 >
-                  Log Out
+                  Cerrar sesion
                 </button>
               </div>
             )}

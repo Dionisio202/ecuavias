@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import logo from "../assets/logo-ecuavias.png"; // Logo de la empresa
-import lockImage from "../assets/forgot.png"; // Imagen ilustrativa de la contraseña (ajusta la ruta)
+import lockImage from "../assets/forgot.png"; // Imagen ilustrativa de la contraseña
+import { supabase } from "../supabase/client";
 import { Link } from "react-router-dom";
 
 const ForgotPassword: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>(""); // Mensaje de éxito
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // Validación básica para el correo
@@ -18,8 +20,19 @@ const ForgotPassword: React.FC = () => {
     }
 
     setError(""); // Limpia el error si el correo es válido
-    console.log("Correo enviado a:", email);
-    // Aquí puedes realizar el envío del correo al backend
+
+    try {
+      const { error } = await supabase.auth.resetPasswordForEmail(email); // Usamos el email ingresado
+      if (error) {
+        setError("Ocurrió un error al enviar el correo de recuperación.");
+        console.error(error.message);
+      } else {
+        setSuccess("Se ha enviado un correo de recuperación. Revisa tu bandeja.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error al conectar con el servidor. Intenta de nuevo más tarde.");
+    }
   };
 
   return (
@@ -32,7 +45,7 @@ const ForgotPassword: React.FC = () => {
       {/* Contenido principal */}
       <div className="h-full flex">
         {/* Sección izquierda */}
-        <div className="w-full lg:w-1/2 flex flex-col justify-center items-start px-8 lg:px-24 bg-gray-100">
+        <div className="w-full lg:w-1/2 flex flex-col justify-center items-start px-8 lg:px-24 bg-white">
           {/* Volver al inicio */}
           <Link
             to="/"
@@ -84,13 +97,14 @@ const ForgotPassword: React.FC = () => {
                 }`}
               />
               {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
+              {success && <p className="text-sm text-green-500 mt-1">{success}</p>}
             </div>
 
             {/* Botón Enviar */}
             <div className="flex justify-center">
               <button
                 type="submit"
-                className="px-6 py-3 bg-gray-800 text-white rounded-lg hover:bg-gray-700"
+                className="w-full max-w-xs px-6 py-3 bg-gray-800 text-white text-center text-sm rounded-lg hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition-all duration-300"
               >
                 Enviar
               </button>
@@ -100,7 +114,11 @@ const ForgotPassword: React.FC = () => {
 
         {/* Sección derecha */}
         <div className="hidden lg:flex lg:w-1/2 bg-gray-50 items-center justify-center">
-          <img src={lockImage} alt="Recuperar contraseña" className="max-w-sm" />
+          <img
+            src={lockImage}
+            alt="Recuperar contraseña"
+            className="max-w-sm"
+          />
         </div>
       </div>
     </div>

@@ -1,16 +1,32 @@
 import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom"; // Importa useLocation
 import User06 from "../assets/user-06.png";
 import { supabase } from "../supabaseClient";
-import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const [sidebarToggle, setSidebarToggle] = useState<boolean>(false);
   const [darkMode, setDarkMode] = useState<boolean>(false);
   const [dropdownOpen, setDropdownOpen] = useState<boolean>(false);
 
+  const location = useLocation(); // Obtén la ubicación actual
+
   return (
     <header className="sticky top-0 z-[999] flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none">
-      <div className="flex flex-grow items-center justify-end px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+      <div className="flex flex-grow items-center justify-between px-4 py-4 shadow-2 md:px-6 2xl:px-11">
+        {/* Texto dinámico basado en la ruta */}
+        <div className="flex items-center">
+          {location.pathname === "/profile" && (
+            <span className="text-2xl font-medium text-black dark:text-black">
+              Perfil
+            </span>
+          )}
+             {location.pathname === "/gestion-usuarios" && (
+        <span className="text-2xl font-medium text-black dark:text-black">
+          Lista de usuarios
+        </span>
+      )}
+        </div>
+
         {/* Hamburger Toggle */}
         <div className="flex items-center gap-2 sm:gap-4 lg:hidden">
           <button
@@ -90,7 +106,7 @@ const Header: React.FC = () => {
                       to="/profile"
                       className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
-                      My Profile
+                      Mi Perfil
                     </Link>
                   </li>
                   <li>
@@ -98,7 +114,7 @@ const Header: React.FC = () => {
                       to="/settings"
                       className="flex items-center gap-3.5 text-sm font-medium duration-300 ease-in-out hover:text-primary lg:text-base"
                     >
-                      Account Settings
+                      Configuración
                     </Link>
                   </li>
                 </ul>
@@ -113,7 +129,7 @@ const Header: React.FC = () => {
                     }
                   }}
                 >
-                  Log Out
+                  Cerrar sesion
                 </button>
               </div>
             )}

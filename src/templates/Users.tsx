@@ -1,5 +1,7 @@
 import React, { useState } from "react";
-import HeaderAndFilters from "../shared/HeaderAndFilters"; // Asegúrate de importar correctamente el componente
+import HeaderAndFilters from "../shared/HeaderAndFilters";
+import UserTable from "../shared/UserTable";
+import AddUserModal from "../shared/AddUserModal"; // Importa el modal
 
 const Users: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,29 +19,52 @@ const Users: React.FC = () => {
       telefono: "0999309622",
       email: "jairofreireortiz10@gmail.com",
       rol: "Admin",
-      observacion: "Admin",
       estado: "Activo",
     },
     {
-      id: 2,
-      tipoDocumento: "Cédula",
-      numeroDocumento: "1805273396",
-      nombre: "Jairo",
-      segundoNombre: "Ismael",
-      apellido: "Freire",
-      segundoApellido: "Ortiz",
-      fechaNacimiento: "04/02/2003",
-      telefono: "0999309622",
-      email: "jairofreireortiz10@gmail.com",
-      rol: "Admin",
-      observacion: "Admin",
-      estado: "No Activo",
-    },
-    // Agrega más usuarios según sea necesario
+        id: 2,
+        tipoDocumento: "Pasaporte",
+        numeroDocumento: "1805273396",
+        nombre: "Jairo",
+        segundoNombre: "Ismael",
+        apellido: "Freire",
+        segundoApellido: "Ortiz",
+        fechaNacimiento: "12/02/2003",
+        telefono: "0999309622",
+        email: "jairofreireortiz10@gmail.com",
+        rol: "Usuario",
+        estado: "No Activo",
+      },
+    // Otros usuarios...
   ]);
 
-  const handleAddUser = () => {
-    console.log("Agregar usuario clickeado");
+  const [isModalOpen, setIsModalOpen] = useState(false); // Estado para el modal
+  const [editingUser, setEditingUser] = useState<any>(null); // Estado para usuario en edición
+
+  const handleAddUserClick = () => {
+    setEditingUser(null); // Asegura que no hay usuario en edición
+    setIsModalOpen(true); // Abre el modal
+  };
+
+  const handleEditUser = (user: any) => {
+    setEditingUser(user); // Establece el usuario que se está editando
+    setIsModalOpen(true); // Abre el modal
+  };
+
+  const handleSaveUser = (newUser: any) => {
+    if (editingUser) {
+      // Actualiza un usuario existente
+      setUsers((prevUsers) =>
+        prevUsers.map((user) => (user.id === editingUser.id ? { ...newUser, id: user.id } : user))
+      );
+    } else {
+      // Agrega un nuevo usuario
+      setUsers((prevUsers) => [
+        ...prevUsers,
+        { ...newUser, id: prevUsers.length + 1 },
+      ]);
+    }
+    setIsModalOpen(false); // Cierra el modal
   };
 
   return (
@@ -51,70 +76,23 @@ const Users: React.FC = () => {
         setSearchTerm={setSearchTerm}
         selectedRole={selectedRole}
         setSelectedRole={setSelectedRole}
-        onAddUserClick={handleAddUser}
+        onAddUserClick={handleAddUserClick}
       />
 
       {/* Tabla de usuarios */}
-      <div className="bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-lg font-bold text-gray-800 mb-4">
-          Resumen de Usuarios
-        </h2>
-        <table className="w-full text-sm text-left text-gray-500 border">
-          <thead className="bg-gray-100 text-gray-700 uppercase text-xs">
-            <tr>
-              <th className="px-4 py-2">Tipo Documento</th>
-              <th className="px-4 py-2">Número Documento</th>
-              <th className="px-4 py-2">Nombre</th>
-              <th className="px-4 py-2">S. Nombre</th>
-              <th className="px-4 py-2">Apellido</th>
-              <th className="px-4 py-2">S. Apellido</th>
-              <th className="px-4 py-2">Fecha Nacimiento</th>
-              <th className="px-4 py-2">Teléfono</th>
-              <th className="px-4 py-2">Email</th>
-              <th className="px-4 py-2">Rol</th>
-              <th className="px-4 py-2">Observación</th>
-              <th className="px-4 py-2">Estado</th>
-              <th className="px-4 py-2">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map((user) => (
-              <tr
-                key={user.id}
-                className="bg-white border-b hover:bg-gray-50"
-              >
-                <td className="px-4 py-2">{user.tipoDocumento}</td>
-                <td className="px-4 py-2">{user.numeroDocumento}</td>
-                <td className="px-4 py-2">{user.nombre}</td>
-                <td className="px-4 py-2">{user.segundoNombre}</td>
-                <td className="px-4 py-2">{user.apellido}</td>
-                <td className="px-4 py-2">{user.segundoApellido}</td>
-                <td className="px-4 py-2">{user.fechaNacimiento}</td>
-                <td className="px-4 py-2">{user.telefono}</td>
-                <td className="px-4 py-2">{user.email}</td>
-                <td className="px-4 py-2">{user.rol}</td>
-                <td className="px-4 py-2">{user.observacion}</td>
-                <td className="px-4 py-2">
-                  <span
-                    className={`px-2 py-1 text-xs rounded ${
-                      user.estado === "Activo"
-                        ? "bg-green-100 text-green-800"
-                        : "bg-red-100 text-red-800"
-                    }`}
-                  >
-                    {user.estado}
-                  </span>
-                </td>
-                <td className="px-4 py-2">
-                  <button className="text-blue-500 hover:underline">
-                    Editar
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <UserTable
+        users={users}
+        onDeleteSelected={() => console.log("Delete selected users")}
+        onEditUser={handleEditUser} // Pasa la función de edición al UserTable
+      />
+
+      {/* Modal para agregar o editar usuario */}
+      <AddUserModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSave={handleSaveUser}
+        userToEdit={editingUser} // Pasa el usuario en edición (si lo hay)
+      />
     </div>
   );
 };

@@ -5,7 +5,7 @@ import ForgotPassword from "./auth/ForgotPassword";
 import Register from "./auth/Register";
 import { supabase } from "./supabaseClient";
 import { useEffect, useState } from "react";
-
+import Users from "./templates/Users";
 // Componente para proteger rutas
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
@@ -50,6 +50,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Profile />
+            </ProtectedRoute>
+          }
+        />
+         <Route
+          path="/gestion-usuarios"
+          element={
+            <ProtectedRoute>
+              <Users/>
             </ProtectedRoute>
           }
         />

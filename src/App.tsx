@@ -7,6 +7,7 @@ import { supabase } from "./supabaseClient";
 import { useEffect, useState } from "react";
 import Users from "./templates/Users";
 import EditProfile from "./templates/EditProfile";
+import Seat from "./templates/Asientos";
 // Componente para proteger rutas
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
@@ -67,6 +68,14 @@ function App() {
           element={
             <ProtectedRoute>
               <EditProfile/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/Asientos"
+          element={
+            <ProtectedRoute>
+              <Seat/>
             </ProtectedRoute>
           }
         />

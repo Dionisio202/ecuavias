@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Profile from "./templates/Profile";
 import Login from "./auth/SignInForm";
 import ForgotPassword from "./auth/ForgotPassword";
@@ -7,6 +12,8 @@ import { supabase } from "./supabaseClient";
 import { useEffect, useState } from "react";
 import Users from "./templates/Users";
 import EditProfile from "./templates/EditProfile";
+import ForgotPasswordForm from "./auth/ForgotPasswordForm";
+import GestionBuses from "./templates/Buses";
 // Componente para proteger rutas
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
@@ -14,7 +21,9 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     const fetchSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setSession(session);
       setLoading(false);
     };
@@ -38,12 +47,15 @@ function App() {
       <Routes>
         {/* Ruta de Inicio */}
         <Route path="/" element={<Login />} />
-        
+
         {/* Ruta de Recuperar Contraseña */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        
+
         {/* Ruta de Registro */}
         <Route path="/register" element={<Register />} />
+
+        {/*Ruta para el formulario de recuperacion de contraseña*/}
+        <Route path="/forgot-password-form" element={<ForgotPasswordForm />} />
 
         {/* Ruta protegida para el perfil */}
         <Route
@@ -54,19 +66,28 @@ function App() {
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/gestion-usuarios"
           element={
             <ProtectedRoute>
-              <Users/>
+              <Users />
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/user-settings"
           element={
             <ProtectedRoute>
-              <EditProfile/>
+              <EditProfile />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/gestion-buses"
+          element={
+            <ProtectedRoute>
+              <GestionBuses />
             </ProtectedRoute>
           }
         />

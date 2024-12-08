@@ -5,39 +5,26 @@ import ArrowBackIcon from "../assets/arrowback.svg";
 import ArrowNextIcon from "../assets/nextarrow.svg";
 import EditIcon from "../assets/edit.svg";
 import EyeIcon from "../assets/eyei.svg";
-
-interface Seat {
-  id: number;
-  numero: string;
-  bus: string;
-  posicion: string;
-  categoria: string;
-  cooperativa: string;
-  registro: string;
-  modelo: string;
-  chasis: string;
-  totalAsientos: number;
-  asientosVIP: number;
-  asientosNormales: number;
-  estado: string;
-}
+import { Seat } from "../shared/interfaces"; // Import the shared Seat interface
 
 interface SeatTableProps {
-  seats: Seat[];
+  seats: Seat[]; // Use the imported Seat interface
   onDeleteSelected: () => void;
   onEditSeat: (seat: Seat) => void;
+  onViewSeat: (seat: Seat) => void; // Nuevo callback para ver el asiento
 }
 
 const SeatTable: React.FC<SeatTableProps> = ({
   seats,
   onDeleteSelected,
   onEditSeat,
+  onViewSeat,
 }) => {
   const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const seatsPerPage = 10;
+  const seatsPerPage = 6;
 
-  // Lógica de paginación
+  // Pagination logic
   const indexOfLastSeat = currentPage * seatsPerPage;
   const indexOfFirstSeat = indexOfLastSeat - seatsPerPage;
   const currentSeats = seats.slice(indexOfFirstSeat, indexOfLastSeat);
@@ -52,20 +39,22 @@ const SeatTable: React.FC<SeatTableProps> = ({
 
   return (
     <div className="bg-white p-6 rounded-3xl shadow-md">
-      {/* Header de la tabla */}
+      {/* Header */}
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-bold text-gray-800">Resumen de Asientos</h2>
         <div className="flex items-center gap-4">
-          {/* Botón de Ver Asientos */}
+          {/* View Seats Button */}
           <button
-            onClick={() => console.log("Ver asientos clickeado")} // Cambia esto por tu lógica
-            className="flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded-full hover:bg-blue-500"
+            onClick={() => onViewSeat(seats.find((seat) => seat.id === selectedSeats[0])!)} // Encuentra y pasa el asiento seleccionado
+            className={`flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded-full hover:bg-blue-500 ${
+              selectedSeats.length === 1 ? "" : "opacity-50 pointer-events-none"
+            }`}
           >
             <img src={EyeIcon} alt="View Seats" className="w-5 h-5" />
             Ver asientos
           </button>
 
-          {/* Botón de eliminar */}
+          {/* Delete Button */}
           <button
             onClick={onDeleteSelected}
             className={`flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded-full hover:bg-blue-500 ${
@@ -76,7 +65,7 @@ const SeatTable: React.FC<SeatTableProps> = ({
             Eliminar seleccionados
           </button>
 
-          {/* Paginador */}
+          {/* Pagination */}
           <Pagination
             count={Math.ceil(seats.length / seatsPerPage)}
             page={currentPage}
@@ -112,7 +101,7 @@ const SeatTable: React.FC<SeatTableProps> = ({
         </div>
       </div>
 
-      {/* Tabla de asientos */}
+      {/* Table */}
       <div className="overflow-x-auto bg-white p-6 rounded-3xl shadow-md">
         <table className="w-full text-sm text-left text-gray-500 border-separate border-spacing-2">
           <thead className="text-white">
@@ -130,12 +119,7 @@ const SeatTable: React.FC<SeatTableProps> = ({
               </th>
               <th className="px-4 py-2 bg-gray-900 text-center rounded-full">Número</th>
               <th className="px-4 py-2 bg-gray-900 text-center rounded-full">Bus</th>
-              <th className="px-4 py-2 bg-gray-900 text-center rounded-full">Posición</th>
               <th className="px-4 py-2 bg-gray-900 text-center rounded-full">Categoría</th>
-              <th className="px-4 py-2 bg-gray-900 text-center rounded-full">N. Coop</th>
-              <th className="px-4 py-2 bg-gray-900 text-center rounded-full">N. Registro</th>
-              <th className="px-4 py-2 bg-gray-900 text-center rounded-full">B. Modelo</th>
-              <th className="px-4 py-2 bg-gray-900 text-center rounded-full">Chasis</th>
               <th className="px-4 py-2 bg-gray-900 text-center rounded-full">T. Asientos</th>
               <th className="px-4 py-2 bg-gray-900 text-center rounded-full">Asientos VIP</th>
               <th className="px-4 py-2 bg-gray-900 text-center rounded-full">Asientos N</th>
@@ -155,12 +139,7 @@ const SeatTable: React.FC<SeatTableProps> = ({
                 </td>
                 <td className="px-4 py-2">{seat.numero}</td>
                 <td className="px-4 py-2">{seat.bus}</td>
-                <td className="px-4 py-2">{seat.posicion}</td>
                 <td className="px-4 py-2">{seat.categoria}</td>
-                <td className="px-4 py-2">{seat.cooperativa}</td>
-                <td className="px-4 py-2">{seat.registro}</td>
-                <td className="px-4 py-2">{seat.modelo}</td>
-                <td className="px-4 py-2">{seat.chasis}</td>
                 <td className="px-4 py-2">{seat.totalAsientos}</td>
                 <td className="px-4 py-2">{seat.asientosVIP}</td>
                 <td className="px-4 py-2">{seat.asientosNormales}</td>

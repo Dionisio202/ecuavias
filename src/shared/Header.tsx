@@ -30,6 +30,11 @@ const Header: React.FC = () => {
           Configuración de usuario
         </span>
       )}
+         {location.pathname === "/Asientos" && (
+        <span className="text-2xl font-medium text-black dark:text-black">
+          Lista de Asientos
+        </span>
+      )}
         </div>
 
         {/* Hamburger Toggle */}

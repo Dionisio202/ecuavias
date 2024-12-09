@@ -6,8 +6,8 @@ interface HeaderAndFiltersProps {
   title: string;
   searchTerm: string;
   setSearchTerm: (value: string) => void;
-  selectedRole: string;
-  setSelectedRole: (value: string) => void;
+  selectedState: string;
+  setSelectedState: (value: string) => void;
   selectedCategory: string;
   setSelectedCategory: (value: string) => void;
   onAddUserClick: () => void;
@@ -17,8 +17,8 @@ const HeaderAndFilters: React.FC<HeaderAndFiltersProps> = ({
   title,
   searchTerm,
   setSearchTerm,
-  selectedRole,
-  setSelectedRole,
+  selectedState,
+  setSelectedState,
   selectedCategory,
   setSelectedCategory,
   onAddUserClick,
@@ -56,18 +56,18 @@ const HeaderAndFilters: React.FC<HeaderAndFiltersProps> = ({
             </div>
           </div>
 
-          {/* Combobox de Buses */}
+          {/* Combobox de Estado */}
           <div className="flex flex-col mr-10">
-            <label className="text-sm text-gray-600 mb-1 ml-8">Buses</label>
+            <label className="text-sm text-gray-600 mb-1 ml-8">Estado</label>
             <div className="relative">
               <select
-                value={selectedRole}
-                onChange={(e) => setSelectedRole(e.target.value)}
+                value={selectedState}
+                onChange={(e) => setSelectedState(e.target.value)}
                 className="appearance-none w-full max-w-[18rem] px-6 py-3 bg-black text-white rounded-full focus:outline-none lg:w-72"
               >
                 <option value="Todas">Todas</option>
-                <option value="Bus 1">Bus 1</option>
-                <option value="Bus 2">Bus 2</option>
+                <option value="Disponible">Disponible</option>
+                <option value="Lleno">Lleno</option>
               </select>
               <svg
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 fill-current text-white"
@@ -94,8 +94,8 @@ const HeaderAndFilters: React.FC<HeaderAndFiltersProps> = ({
                 className="appearance-none w-full max-w-[18rem] px-6 py-3 bg-black text-white rounded-full focus:outline-none lg:w-72"
               >
                 <option value="Todas">Todas</option>
-                <option value="Categoría 1">Categoría 1</option>
-                <option value="Categoría 2">Categoría 2</option>
+                <option value="VIP">VIP</option>
+                <option value="Normal">Normal</option>
               </select>
               <svg
                 className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 fill-current text-white"

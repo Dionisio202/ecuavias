@@ -9,14 +9,12 @@ import { Seat } from "../shared/interfaces"; // Import the shared Seat interface
 
 interface SeatTableProps {
   seats: Seat[]; // Use the imported Seat interface
-  onDeleteSelected: () => void;
   onEditSeat: (seat: Seat) => void;
-  onViewSeat: (seat: Seat) => void; // Nuevo callback para ver el asiento
+  onViewSeat: (seat: Seat) => void;
 }
 
 const SeatTable: React.FC<SeatTableProps> = ({
   seats,
-  onDeleteSelected,
   onEditSeat,
   onViewSeat,
 }) => {
@@ -37,6 +35,27 @@ const SeatTable: React.FC<SeatTableProps> = ({
 
   const isSeatSelected = (id: number) => selectedSeats.includes(id);
 
+  const handleDeleteConfirmation = () => {
+    if (selectedSeats.length === 0) {
+      alert("No hay asientos seleccionados para eliminar.");
+      return;
+    }
+
+    const confirmation = window.confirm("¿Estás seguro de que deseas eliminar los asientos seleccionados?");
+
+    if (confirmation) {
+      const selectedSeatDetails = seats
+        .filter((seat) => selectedSeats.includes(seat.id))
+        .map((seat) => `Número: ${seat.numero}, Bus: ${seat.bus}`)
+        .join("\n");
+
+      alert(`Asientos eliminados:\n${selectedSeatDetails}`);
+
+      // Aquí puedes realizar la lógica de eliminación real si es necesario
+      setSelectedSeats([]); // Desmarca los seleccionados
+    }
+  };
+
   return (
     <div className="bg-white p-6 rounded-3xl shadow-md">
       {/* Header */}
@@ -45,7 +64,7 @@ const SeatTable: React.FC<SeatTableProps> = ({
         <div className="flex items-center gap-4">
           {/* View Seats Button */}
           <button
-            onClick={() => onViewSeat(seats.find((seat) => seat.id === selectedSeats[0])!)} // Encuentra y pasa el asiento seleccionado
+            onClick={() => onViewSeat(seats.find((seat) => seat.id === selectedSeats[0])!)}
             className={`flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded-full hover:bg-blue-500 ${
               selectedSeats.length === 1 ? "" : "opacity-50 pointer-events-none"
             }`}
@@ -56,9 +75,9 @@ const SeatTable: React.FC<SeatTableProps> = ({
 
           {/* Delete Button */}
           <button
-            onClick={onDeleteSelected}
+            onClick={handleDeleteConfirmation}
             className={`flex items-center gap-2 px-4 py-2 bg-blue-400 text-white rounded-full hover:bg-blue-500 ${
-              selectedSeats.length === 0 && "opacity-50 pointer-events-none"
+              selectedSeats.length === 0 ? "opacity-50 pointer-events-none" : ""
             }`}
           >
             <img src={TrashIcon} alt="Delete" className="w-5 h-5" />

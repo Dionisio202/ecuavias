@@ -93,7 +93,7 @@ const Asiento: React.FC = () => {
       totalAsientos: 70,
       asientosVIP: 30,
       asientosNormales: 40,
-      estado: "Mantenimiento",
+      estado: "Lleno",
       floors: [
         {
           floorNumber: 1,
@@ -153,7 +153,7 @@ const Asiento: React.FC = () => {
       totalAsientos: 55,
       asientosVIP: 25,
       asientosNormales: 30,
-      estado: "Ocupado",
+      estado: "Lleno",
       floors: [
         {
           floorNumber: 1,
@@ -237,7 +237,7 @@ const Asiento: React.FC = () => {
       totalAsientos: 75,
       asientosVIP: 10,
       asientosNormales: 65,
-      estado: "Ocupado",
+      estado: "Lleno",
       floors: [
         {
           floorNumber: 1,
@@ -261,7 +261,7 @@ const Asiento: React.FC = () => {
       totalAsientos: 65,
       asientosVIP: 30,
       asientosNormales: 35,
-      estado: "Mantenimiento",
+      estado: "Lleno",
       floors: [
         {
           floorNumber: 1,
@@ -314,7 +314,7 @@ const Asiento: React.FC = () => {
     const searchMatch =
       seat.numero.includes(searchTerm) ||
       seat.bus.toLowerCase().includes(searchTerm.toLowerCase());
-    const roleMatch = selectedRole === "Todas" || seat.bus === selectedRole;
+    const roleMatch = selectedRole === "Todas" || seat.estado === selectedRole;
     const categoryMatch =
       selectedCategory === "Todas" || seat.categoria === selectedCategory;
     return searchMatch && roleMatch && categoryMatch;
@@ -409,8 +409,8 @@ const Asiento: React.FC = () => {
               title="Gestión de Asientos"
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
-              selectedRole={selectedRole}
-              setSelectedRole={setSelectedRole}
+              selectedState={selectedRole}
+              setSelectedState={setSelectedRole}
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
               onAddUserClick={handleAddSeatLayout}
@@ -419,7 +419,6 @@ const Asiento: React.FC = () => {
             {/* Tabla de Asientos */}
             <SeatTable
               seats={filteredSeats}
-              onDeleteSelected={() => console.log("Eliminar seleccionados")}
               onEditSeat={handleEditSeatLayout}
               onViewSeat={handleViewSeat} // Nuevo callback para ver asientos
             />

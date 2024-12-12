@@ -14,6 +14,8 @@ import Users from "./templates/Users";
 import EditProfile from "./templates/EditProfile";
 import ForgotPasswordForm from "./auth/ForgotPasswordForm";
 import GestionBuses from "./templates/Buses";
+import GestionFrecuencias from "./templates/Frecuencias";
+import GestionParadas from "./templates/Paradas";
 // Componente para proteger rutas
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
@@ -64,6 +66,25 @@ function App() {
             <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
+          }
+        />
+        {/* Gestion de Frecuencias */}
+        <Route
+          path="/gestion-frecuencias"
+          element={
+            <ProtectedRoute>
+              <GestionFrecuencias />
+            </ProtectedRoute>
+          }
+        />
+        {/* Gestion de Paradas */}
+
+        <Route
+          path="/gestion-paradas"
+          element={
+            
+              <GestionParadas />
+            
           }
         />
         <Route

@@ -6,8 +6,6 @@ import UserIcon from "../assets/useri.svg";
 import BusIcon from "../assets/busi.svg";
 import ReservationIcon from "../assets/reservai.svg";
 
-
-
 const Sidebar = () => {
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [selected, setSelected] = useState<string>("");
@@ -18,28 +16,30 @@ const Sidebar = () => {
       title: "Usuarios",
       key: "Usuarios",
       icon: <img src={UserIcon} alt="Usuarios" className="w-6 h-6" />, // Ícono personalizado
-      subItems: [{ title: "Perfil", to: "/profile" },
+      subItems: [
+        { title: "Perfil", to: "/profile" },
         { title: "Gestión", to: "/gestion-usuarios" },
-        { title: "Configuración", to: "/user-settings" }
+        { title: "Configuración", to: "/user-settings" },
       ],
     },
     {
       title: "Buses",
       key: "Buses",
       icon: <img src={BusIcon} alt="Buses" className="w-6 h-6" />, // Ícono personalizado
-      subItems: [{ title: "Asientos", to: "/Asientos" }],
+      subItems: [
+        { title: "Asientos", to: "/Asientos" },
+        { title: "Gestion de Buses", to: "/gestion-buses" },
+      ],
     },
     {
       title: "Reservaciones",
       key: "Reservaciones",
       icon: (
-        <img
-          src={ReservationIcon}
-          alt="Reservaciones"
-          className="w-6 h-6"
-        />
+        <img src={ReservationIcon} alt="Reservaciones" className="w-6 h-6" />
       ), // Ícono personalizado
-      subItems: [{ title: "Lista de Reservaciones", to: "/ListaReservaciones" }],
+      subItems: [
+        { title: "Lista de Reservaciones", to: "/ListaReservaciones" },
+      ],
     },
   ];
 

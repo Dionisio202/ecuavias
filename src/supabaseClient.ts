@@ -1,8 +1,8 @@
 import { createClient } from '@supabase/supabase-js';
 
 // URL y clave pública de tu proyecto Supabase desde las variables de entorno
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
-const supabaseKey = import.meta.env.VITE_SUPABASE_KEY;
+const supabaseUrl = process.env.VITE_SUPABASE_URL;
+const supabaseKey = process.env.VITE_SUPABASE_KEY;
 
 // Crear el cliente de Supabase con persistencia de sesión habilitada
 export const supabase = createClient(

@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 import Profile from "./templates/Profile";
 import Login from "./auth/SignInForm";
 import ForgotPassword from "./auth/ForgotPassword";
@@ -9,14 +14,20 @@ import Users from "./templates/Users";
 import EditProfile from "./templates/EditProfile";
 import Seat from "./templates/Asientos";
 import Reservaciones from "./templates/GReservas";
-// Componente para proteger rutas
+import ForgotPasswordForm from "./auth/ForgotPasswordForm";
+import GestionBuses from "./templates/Buses";
+import GestionFrecuencias from "./templates/Frecuencias";
+import GestionParadas from "./templates/Paradas";
+
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
     const fetchSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       setSession(session);
       setLoading(false);
     };
@@ -40,12 +51,15 @@ function App() {
       <Routes>
         {/* Ruta de Inicio */}
         <Route path="/" element={<Login />} />
-        
+
         {/* Ruta de Recuperar Contraseña */}
         <Route path="/forgot-password" element={<ForgotPassword />} />
-        
+
         {/* Ruta de Registro */}
         <Route path="/register" element={<Register />} />
+
+        {/*Ruta para el formulario de recuperacion de contraseña*/}
+        <Route path="/forgot-password-form" element={<ForgotPasswordForm />} />
 
         {/* Ruta protegida para el perfil */}
         <Route
@@ -56,27 +70,47 @@ function App() {
             </ProtectedRoute>
           }
         />
-         <Route
+        {/* Gestion de Frecuencias */}
+        <Route
+          path="/gestion-frecuencias"
+          element={
+            <ProtectedRoute>
+              <GestionFrecuencias />
+            </ProtectedRoute>
+          }
+        />
+        {/* Gestion de Paradas */}
+
+        <Route
+          path="/gestion-paradas"
+          element={
+            
+              <GestionParadas />
+            
+          }
+        />
+        <Route
           path="/gestion-usuarios"
           element={
             <ProtectedRoute>
-              <Users/>
+              <Users />
             </ProtectedRoute>
           }
         />
-         <Route
+        <Route
           path="/user-settings"
           element={
             <ProtectedRoute>
-              <EditProfile/>
+              <EditProfile />
             </ProtectedRoute>
           }
         />
-          <Route
-          path="/Asientos"
+
+        <Route
+          path="/gestion-buses"
           element={
             <ProtectedRoute>
-              <Seat/>
+              <GestionBuses />
             </ProtectedRoute>
           }
         />

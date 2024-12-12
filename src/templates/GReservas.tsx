@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReservacionTable from "../shared/ReservasTable";
 import Sidebar from "../shared/SideBar";
 import Preloader from "../shared/Preloaded";
-import HeaderAndFilters from "../shared/HeaderReservas";
+import HeaderAndFilters from "../shared/Headerreservas";
 import EditModal from "../shared/EditModal";
 
 interface Reservacion {

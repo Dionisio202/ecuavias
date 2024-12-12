@@ -79,6 +79,14 @@ function App() {
             </ProtectedRoute>
           }
         />
+         <Route
+          path="/Asientos"
+          element={
+            <ProtectedRoute>
+              <Seat />
+            </ProtectedRoute>
+          }
+        />
         {/* Gestion de Paradas */}
 
         <Route

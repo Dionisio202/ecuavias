@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import Users from "./templates/Users";
 import EditProfile from "./templates/EditProfile";
 import Seat from "./templates/Asientos";
+import Reservaciones from "./templates/GReservas";
 // Componente para proteger rutas
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
@@ -76,6 +77,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Seat/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/ListaReservaciones"
+          element={
+            <ProtectedRoute>
+              <Reservaciones/>
             </ProtectedRoute>
           }
         />

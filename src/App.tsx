@@ -13,11 +13,12 @@ import { useEffect, useState } from "react";
 import Users from "./templates/Users";
 import EditProfile from "./templates/EditProfile";
 import Seat from "./templates/Asientos";
+import Reservaciones from "./templates/GReservas";
 import ForgotPasswordForm from "./auth/ForgotPasswordForm";
 import GestionBuses from "./templates/Buses";
 import GestionFrecuencias from "./templates/Frecuencias";
 import GestionParadas from "./templates/Paradas";
-// Componente para proteger rutas
+
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -110,6 +111,14 @@ function App() {
           element={
             <ProtectedRoute>
               <GestionBuses />
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/ListaReservaciones"
+          element={
+            <ProtectedRoute>
+              <Reservaciones/>
             </ProtectedRoute>
           }
         />

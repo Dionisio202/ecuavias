@@ -36,7 +36,7 @@ interface Cell {
 }
 
 const Asiento: React.FC = () => {
-  const [seats, setSeats] = useState<Seat[]>([
+  const [seats] = useState<Seat[]>([
     {
       id: 1,
       numero: "21",

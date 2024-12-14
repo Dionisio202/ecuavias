@@ -68,7 +68,7 @@ const UserTable: React.FC<UserTableProps> = ({
           <Pagination
             count={Math.ceil(users.length / usersPerPage)}
             page={currentPage}
-            onChange={(event, value) => setCurrentPage(value)}
+            onChange={(_, value) => setCurrentPage(value)}
             renderItem={(item) => (
               <PaginationItem
                 {...item}

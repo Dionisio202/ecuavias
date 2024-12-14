@@ -88,7 +88,8 @@ const SeatTable: React.FC<SeatTableProps> = ({
           <Pagination
             count={Math.ceil(seats.length / seatsPerPage)}
             page={currentPage}
-            onChange={(event, value) => setCurrentPage(value)}
+            onChange={(_, value) => setCurrentPage(value)}
+
             renderItem={(item) => (
               <PaginationItem
                 {...item}

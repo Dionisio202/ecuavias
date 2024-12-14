@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Pagination, PaginationItem } from "@mui/material";
 import TrashIcon from "../assets/Trash.svg";
 import ArrowBackIcon from "../assets/arrowback.svg";
@@ -65,7 +65,7 @@ const DynamicTable = <T extends unknown>({
           <Pagination
             count={Math.ceil(data.length / rowsPerPage)}
             page={currentPage}
-            onChange={(event, value) => setCurrentPage(value)}
+            onChange={(_, value) => setCurrentPage(value)}
             renderItem={(item) => (
               <PaginationItem
                 {...item}

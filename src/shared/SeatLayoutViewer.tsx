@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-interface LayoutData {
-  busNumber: string;
-  floors: FloorData[];
-}
+//interface LayoutData {
+  //busNumber: string;
+  //floors: FloorData[];
+//}
 
 interface FloorData {
   floorNumber: number;

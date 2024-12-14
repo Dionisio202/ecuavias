@@ -48,7 +48,7 @@ const Profile: React.FC = () => {
                 <div className="px-4 pb-6 text-center lg:pb-8 xl:pb-11.5 pt-8">
                   <div className="mt-20"> {/* Ajusta el margen según sea necesario */}
                     <h3 className="mb-1.5 text-2xl font-medium text-black dark:text-black">
-                      Edison Ortiz
+                      Edison Solis
                     </h3>
                     <p className="font-medium">Admin</p>
                   </div>

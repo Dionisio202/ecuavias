@@ -52,16 +52,34 @@ const Reservaciones: React.FC = () => {
     },
   ]);
 
+  // Estados para los filtros
+  const [searchTerm, setSearchTerm] = useState("");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState("Todas");
+  const [selectedStatus, setSelectedStatus] = useState("Todas");
+
   const [modalOpen, setModalOpen] = useState(false);
   const [currentReservacion, setCurrentReservacion] = useState<Reservacion | null>(null);
 
-  // Función para manejar el botón "Editar" y abrir el modal con los datos seleccionados
+  // Filtrar las reservaciones con base en los filtros seleccionados
+  const filteredReservaciones = reservaciones.filter((reservacion) => {
+    const matchesSearch =
+      searchTerm === "" ||
+      reservacion.nombre.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reservacion.apellido.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      reservacion.numeroDocumento.includes(searchTerm);
+    const matchesPayment =
+      selectedPaymentMethod === "Todas" || reservacion.metodoPago === selectedPaymentMethod;
+    const matchesStatus =
+      selectedStatus === "Todas" || reservacion.estado === selectedStatus;
+
+    return matchesSearch && matchesPayment && matchesStatus;
+  });
+
   const handleEditReservacion = (reservacion: Reservacion) => {
-    setCurrentReservacion(reservacion); // Guardar la reservación seleccionada en el estado
-    setModalOpen(true); // Abrir el modal
+    setCurrentReservacion(reservacion);
+    setModalOpen(true);
   };
 
-  // Función para guardar los cambios realizados en el modal
   const handleSaveReservacion = (updatedData: {
     estado: string;
     numeroBus: string;
@@ -69,16 +87,13 @@ const Reservaciones: React.FC = () => {
     fechaReserva: string;
   }) => {
     if (currentReservacion) {
-      // Actualizar la reservación en el estado
       setReservaciones((prev) =>
         prev.map((r) =>
-          r.id === currentReservacion.id
-            ? { ...r, ...updatedData } // Actualizar los datos de la reservación seleccionada
-            : r
+          r.id === currentReservacion.id ? { ...r, ...updatedData } : r
         )
       );
     }
-    setModalOpen(false); // Cerrar el modal
+    setModalOpen(false);
   };
 
   return (
@@ -90,18 +105,18 @@ const Reservaciones: React.FC = () => {
           {/* Header y Filtros */}
           <HeaderAndFilters
             title="Gestión de Reservaciones"
-            searchTerm=""
-            setSearchTerm={() => {}}
-            selectedPaymentMethod="Todas"
-            setSelectedPaymentMethod={() => {}}
-            selectedStatus="Todas"
-            setSelectedStatus={() => {}}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm} // Pasar la función de estado
+            selectedPaymentMethod={selectedPaymentMethod}
+            setSelectedPaymentMethod={setSelectedPaymentMethod} // Pasar la función de estado
+            selectedStatus={selectedStatus}
+            setSelectedStatus={setSelectedStatus} // Pasar la función de estado
             onAddReservationClick={() => alert("Agregar nueva reservación")}
           />
           {/* Tabla de Reservaciones */}
           <ReservacionTable
-            seats={reservaciones}
-            onEditSeat={handleEditReservacion} // Pasar la función de editar
+            seats={filteredReservaciones} // Usar las reservaciones filtradas
+            onEditSeat={handleEditReservacion}
             onViewSeat={(reservacion) =>
               alert(`Ver reservación de ${reservacion.nombre}`)
             }
@@ -110,9 +125,9 @@ const Reservaciones: React.FC = () => {
       </div>
       {/* Modal de edición */}
       <EditModal
-        isOpen={modalOpen} // Determinar si el modal está abierto
-        onClose={() => setModalOpen(false)} // Función para cerrar el modal
-        onSave={handleSaveReservacion} // Guardar los cambios del modal
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onSave={handleSaveReservacion}
         initialData={{
           estado: currentReservacion?.estado || "",
           numeroBus: currentReservacion?.numeroBus || "",

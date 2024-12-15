@@ -26,21 +26,21 @@ const HeaderAndFilters: React.FC<HeaderAndFiltersProps> = ({
   return (
     <div className="mb-6">
       {/* Header */}
-      <div className="flex flex-wrap justify-between items-center mb-6">
+      <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
         <h1 className="text-3xl font-bold text-gray-800">{title}</h1>
         <button
           onClick={onAddUserClick}
-          className="flex items-center gap-2 px-4 py-2 bg-blue-400 text-black rounded-full hover:bg-blue-500 shadow-lg"
+          className="flex items-center gap-2 px-4 py-2 bg-blue-400 text-black rounded-full hover:bg-blue-500 shadow-lg w-full sm:w-auto"
         >
-          <img src={AddIcon} alt="Add" className="w-8 h-8" /> Agregar Asiento
+          <img src={AddIcon} alt="Add" className="w-6 h-6" /> Agregar Asiento
         </button>
       </div>
 
       {/* Filtros */}
       <div className="bg-white p-6 rounded-3xl shadow-lg">
-        <div className="flex flex-col lg:flex-row gap-4 items-start lg:items-center justify-center">
+        <div className="flex flex-col sm:flex-row flex-wrap gap-4">
           {/* Campo de búsqueda */}
-          <div className="flex flex-col w-full max-w-md mr-16">
+          <div className="flex flex-col w-full sm:w-auto flex-1">
             <label className="text-sm text-gray-600 mb-1">¿Qué estás buscando?</label>
             <div className="relative w-full">
               <input
@@ -50,27 +50,27 @@ const HeaderAndFilters: React.FC<HeaderAndFiltersProps> = ({
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-black text-white placeholder-gray-400 rounded-full focus:outline-none"
               />
-              <span className="absolute left-4 top-1/2 transform -translate-y-1/2 ">
-                <img src={SearchIcon} alt="Search" className="w-4 h-4 text-white mr-10" />
+              <span className="absolute left-4 top-1/2 transform -translate-y-1/2">
+                <img src={SearchIcon} alt="Search" className="w-4 h-4" />
               </span>
             </div>
           </div>
 
           {/* Combobox de Estado */}
-          <div className="flex flex-col mr-10">
-            <label className="text-sm text-gray-600 mb-1 ml-8">Estado</label>
+          <div className="flex flex-col w-full sm:w-auto">
+            <label className="text-sm text-gray-600 mb-1">Estado</label>
             <div className="relative">
               <select
                 value={selectedState}
                 onChange={(e) => setSelectedState(e.target.value)}
-                className="appearance-none w-full max-w-[18rem] px-6 py-3 bg-black text-white rounded-full focus:outline-none lg:w-72"
+                className="appearance-none w-full px-6 py-3 bg-black text-white rounded-full focus:outline-none"
               >
                 <option value="Todas">Todas</option>
                 <option value="Disponible">Disponible</option>
                 <option value="Lleno">Lleno</option>
               </select>
               <svg
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 fill-current text-white"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
@@ -85,20 +85,20 @@ const HeaderAndFilters: React.FC<HeaderAndFiltersProps> = ({
           </div>
 
           {/* Combobox de Categorías */}
-          <div className="flex flex-col">
-            <label className="text-sm text-gray-600 mb-1 ml-8">Categorías</label>
+          <div className="flex flex-col w-full sm:w-auto">
+            <label className="text-sm text-gray-600 mb-1">Categorías</label>
             <div className="relative">
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="appearance-none w-full max-w-[18rem] px-6 py-3 bg-black text-white rounded-full focus:outline-none lg:w-72"
+                className="appearance-none w-full px-6 py-3 bg-black text-white rounded-full focus:outline-none"
               >
                 <option value="Todas">Todas</option>
                 <option value="VIP">VIP</option>
                 <option value="Normal">Normal</option>
               </select>
               <svg
-                className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 fill-current text-white"
+                className="absolute right-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-white"
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
@@ -113,9 +113,9 @@ const HeaderAndFilters: React.FC<HeaderAndFiltersProps> = ({
           </div>
 
           {/* Botón Buscar */}
-          <div className="flex flex-col mt-4 lg:mt-0">
-            <label className="text-sm text-gray-600 mb-1 invisible">.</label>
-            <button className="px-6 py-3 bg-blue-400 text-black rounded-full hover:bg-blue-500 w-full max-w-[14rem] lg:w-56">
+          <div className="flex flex-col w-full sm:w-auto">
+            <label className="text-sm text-gray-600 mb-1 invisible">Buscar</label>
+            <button className="px-6 py-3 bg-blue-400 text-black rounded-full hover:bg-blue-500 w-full sm:w-40">
               Buscar
             </button>
           </div>

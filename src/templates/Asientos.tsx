@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import SeatTable from "../shared/AsientosTable";
 import Sidebar from "../shared/SideBar";
 import Preloader from "../shared/Preloaded";
+import Header from "../shared/Header"; // Importación del Header
 import HeaderAndFilters from "../shared/HeaderAsientos";
-import SeatLayoutViewer from "../shared/SeatLayoutViewer"; // Componente para ver asientos
-import SeatLayout from "../shared/SeatLayout"; // Componente para configurar un nuevo layout
-import SeatLayoutEditor from "../shared/SeatLayoutEditor"; // Componente para editar el layout existente
+import SeatLayoutViewer from "../shared/SeatLayoutViewer";
+import SeatLayout from "../shared/SeatLayout";
+import SeatLayoutEditor from "../shared/SeatLayoutEditor";
 
 interface Seat {
   id: number;
@@ -16,7 +17,7 @@ interface Seat {
   asientosVIP: number;
   asientosNormales: number;
   estado: string;
-  floors: FloorData[]; // Agregado para soportar datos de pisos
+  floors: FloorData[];
 }
 
 interface FloorData {
@@ -61,254 +62,14 @@ const Asiento: React.FC = () => {
         },
       ],
     },
-    {
-      id: 2,
-      numero: "22",
-      bus: "Quito",
-      categoria: "Normal",
-      totalAsientos: 50,
-      asientosVIP: 10,
-      asientosNormales: 40,
-      estado: "Disponible",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 5,
-          cols: 4,
-          seats: [
-            { fila: 0, columna: 0, tipo: "Normal" },
-            { fila: 1, columna: 2, tipo: "VIP" },
-          ],
-          totalSeats: 20,
-          totalVIPSeats: 5,
-          totalNormalSeats: 15,
-        },
-      ],
-    },
-    {
-      id: 3,
-      numero: "23",
-      bus: "Guayaquil",
-      categoria: "VIP",
-      totalAsientos: 70,
-      asientosVIP: 30,
-      asientosNormales: 40,
-      estado: "Lleno",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 7,
-          cols: 5,
-          seats: [
-            { fila: 0, columna: 3, tipo: "VIP" },
-            { fila: 4, columna: 2, tipo: "Normal" },
-          ],
-          totalSeats: 35,
-          totalVIPSeats: 15,
-          totalNormalSeats: 20,
-        },
-        {
-          floorNumber: 2,
-          rows: 6,
-          cols: 4,
-          seats: [
-            { fila: 2, columna: 0, tipo: "VIP" },
-            { fila: 5, columna: 3, tipo: "Normal" },
-          ],
-          totalSeats: 35,
-          totalVIPSeats: 15,
-          totalNormalSeats: 20,
-        },
-      ],
-    },
-    {
-      id: 4,
-      numero: "24",
-      bus: "Cuenca",
-      categoria: "Normal",
-      totalAsientos: 80,
-      asientosVIP: 20,
-      asientosNormales: 60,
-      estado: "Disponible",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 8,
-          cols: 5,
-          seats: [
-            { fila: 0, columna: 1, tipo: "Normal" },
-            { fila: 7, columna: 3, tipo: "VIP" },
-          ],
-          totalSeats: 40,
-          totalVIPSeats: 10,
-          totalNormalSeats: 30,
-        },
-      ],
-    },
-    {
-      id: 5,
-      numero: "25",
-      bus: "Loja",
-      categoria: "VIP",
-      totalAsientos: 55,
-      asientosVIP: 25,
-      asientosNormales: 30,
-      estado: "Lleno",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 5,
-          cols: 5,
-          seats: [
-            { fila: 1, columna: 4, tipo: "VIP" },
-            { fila: 3, columna: 2, tipo: "Normal" },
-          ],
-          totalSeats: 25,
-          totalVIPSeats: 10,
-          totalNormalSeats: 15,
-        },
-      ],
-    },
-    {
-      id: 6,
-      numero: "26",
-      bus: "Machala",
-      categoria: "Normal",
-      totalAsientos: 90,
-      asientosVIP: 15,
-      asientosNormales: 75,
-      estado: "Disponible",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 9,
-          cols: 5,
-          seats: [
-            { fila: 0, columna: 2, tipo: "VIP" },
-            { fila: 8, columna: 4, tipo: "Normal" },
-          ],
-          totalSeats: 45,
-          totalVIPSeats: 5,
-          totalNormalSeats: 40,
-        },
-      ],
-    },
-    {
-      id: 7,
-      numero: "27",
-      bus: "Riobamba",
-      categoria: "VIP",
-      totalAsientos: 100,
-      asientosVIP: 40,
-      asientosNormales: 60,
-      estado: "Disponible",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 10,
-          cols: 5,
-          seats: [
-            { fila: 2, columna: 1, tipo: "Normal" },
-            { fila: 7, columna: 0, tipo: "VIP" },
-          ],
-          totalSeats: 50,
-          totalVIPSeats: 20,
-          totalNormalSeats: 30,
-        },
-        {
-          floorNumber: 2,
-          rows: 10,
-          cols: 5,
-          seats: [
-            { fila: 4, columna: 2, tipo: "Normal" },
-            { fila: 9, columna: 3, tipo: "VIP" },
-          ],
-          totalSeats: 50,
-          totalVIPSeats: 20,
-          totalNormalSeats: 30,
-        },
-      ],
-    },
-    {
-      id: 8,
-      numero: "28",
-      bus: "Santo Domingo",
-      categoria: "Normal",
-      totalAsientos: 75,
-      asientosVIP: 10,
-      asientosNormales: 65,
-      estado: "Lleno",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 8,
-          cols: 4,
-          seats: [
-            { fila: 3, columna: 3, tipo: "VIP" },
-            { fila: 6, columna: 2, tipo: "Normal" },
-          ],
-          totalSeats: 40,
-          totalVIPSeats: 5,
-          totalNormalSeats: 35,
-        },
-      ],
-    },
-    {
-      id: 9,
-      numero: "29",
-      bus: "Esmeraldas",
-      categoria: "VIP",
-      totalAsientos: 65,
-      asientosVIP: 30,
-      asientosNormales: 35,
-      estado: "Lleno",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 6,
-          cols: 5,
-          seats: [
-            { fila: 0, columna: 0, tipo: "VIP" },
-            { fila: 5, columna: 4, tipo: "Normal" },
-          ],
-          totalSeats: 30,
-          totalVIPSeats: 15,
-          totalNormalSeats: 15,
-        },
-      ],
-    },
-    {
-      id: 10,
-      numero: "30",
-      bus: "Ibarra",
-      categoria: "Normal",
-      totalAsientos: 85,
-      asientosVIP: 20,
-      asientosNormales: 65,
-      estado: "Disponible",
-      floors: [
-        {
-          floorNumber: 1,
-          rows: 9,
-          cols: 5,
-          seats: [
-            { fila: 1, columna: 2, tipo: "VIP" },
-            { fila: 8, columna: 3, tipo: "Normal" },
-          ],
-          totalSeats: 45,
-          totalVIPSeats: 10,
-          totalNormalSeats: 35,
-        },
-      ],
-    }
   ]);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRole, setSelectedRole] = useState("Todas");
   const [selectedCategory, setSelectedCategory] = useState("Todas");
-  const [isAdding, setIsAdding] = useState(false); // Para agregar un nuevo layout
-  const [editingSeat, setEditingSeat] = useState<Seat | null>(null); // Para editar un layout existente
-  const [viewingSeat, setViewingSeat] = useState<Seat | null>(null); // Para ver un asiento existente
+  const [isAdding, setIsAdding] = useState(false);
+  const [editingSeat, setEditingSeat] = useState<Seat | null>(null);
+  const [viewingSeat, setViewingSeat] = useState<Seat | null>(null);
 
   const filteredSeats = seats.filter((seat) => {
     const searchMatch =
@@ -320,27 +81,6 @@ const Asiento: React.FC = () => {
     return searchMatch && roleMatch && categoryMatch;
   });
 
-  const handleAddSeatLayout = () => {
-    setIsAdding(true);
-    setEditingSeat(null); // Asegúrate de que no se esté editando nada
-  };
-
-  const handleEditSeatLayout = (seat: Seat) => {
-    setEditingSeat(seat); // Configura el asiento a editar
-    setIsAdding(false); // Asegúrate de que no esté en modo agregar
-  };
-
-  const handleViewSeat = (seat: Seat) => {
-    setViewingSeat(seat); // Configura el asiento a ver
-  };
-
-  const handleSaveLayout = (updatedLayout: any) => {
-    console.log("Layout actualizado:", updatedLayout);
-    setIsAdding(false);
-    setEditingSeat(null);
-    // Aquí puedes actualizar los datos en `seats` si es necesario.
-  };
-
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Preloader */}
@@ -351,6 +91,9 @@ const Asiento: React.FC = () => {
 
       {/* Main Content Area */}
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+        {/* Condicional para ocultar Header */}
+        {!isAdding && !editingSeat && !viewingSeat && <Header />}
+
         {/* Layout de Asientos a Pantalla Completa */}
         {isAdding && (
           <div className="fixed inset-0 bg-white z-50 overflow-auto">
@@ -378,7 +121,7 @@ const Asiento: React.FC = () => {
               <SeatLayoutEditor
                 initialBusNumber={editingSeat.numero}
                 initialFloors={editingSeat.floors}
-                onSave={handleSaveLayout}
+                onSave={() => setEditingSeat(null)}
               />
             </div>
           </div>
@@ -413,14 +156,14 @@ const Asiento: React.FC = () => {
               setSelectedState={setSelectedRole}
               selectedCategory={selectedCategory}
               setSelectedCategory={setSelectedCategory}
-              onAddUserClick={handleAddSeatLayout}
+              onAddUserClick={() => setIsAdding(true)}
             />
 
             {/* Tabla de Asientos */}
             <SeatTable
               seats={filteredSeats}
-              onEditSeat={handleEditSeatLayout}
-              onViewSeat={handleViewSeat} // Nuevo callback para ver asientos
+              onEditSeat={(seat) => setEditingSeat(seat)}
+              onViewSeat={(seat) => setViewingSeat(seat)}
             />
           </main>
         )}

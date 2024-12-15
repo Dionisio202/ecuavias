@@ -18,7 +18,7 @@ import ForgotPasswordForm from "./auth/ForgotPasswordForm";
 import GestionBuses from "./templates/Buses";
 import GestionFrecuencias from "./templates/Frecuencias";
 import GestionParadas from "./templates/Paradas";
-
+import Pagos from "./templates/Pagos";
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -127,6 +127,14 @@ function App() {
           element={
             <ProtectedRoute>
               <Reservaciones/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/Pagos"
+          element={
+            <ProtectedRoute>
+              <Pagos/>
             </ProtectedRoute>
           }
         />

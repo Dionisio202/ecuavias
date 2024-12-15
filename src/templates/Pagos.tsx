@@ -3,7 +3,6 @@ import Header from "../shared/Header";
 import Sidebar from "../shared/SideBar";
 import Preloader from "../shared/Preloaded";
 import PaymentMethod from "../shared/PaymentMethodHeader"; // Nuevo componente de Pagos
-
 const Pagos: React.FC = () => {
   return (
     <div className="flex h-screen overflow-hidden">

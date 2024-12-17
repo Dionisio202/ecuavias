@@ -44,70 +44,84 @@ const PurchaseDetails: React.FC<PurchaseDetailsProps> = ({
         Detalles de la compra
       </h2>
 
-      {/* Sección de BUS */}
-      <div className="mb-8">
-        <div className="border-t-2 border-[#3C4C8F] mb-2"></div>
-        <h3 className="text-lg font-semibold mb-2 text-gray-700">BUS</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-white border-b-2 border-[#ffffff] pb-2">
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium"># Bus</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Bus</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Cooperativa</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Placa</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Chofer</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Ruta</span>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-2 text-center">
-          <span>{busDetails.busNumber}</span>
-          <span>{busDetails.bus}</span>
-          <span>{busDetails.cooperative}</span>
-          <span>{busDetails.plate}</span>
-          <span>{busDetails.driver}</span>
-          <span>{busDetails.route}</span>
-        </div>
-      </div>
+     {/* Sección de BUS */}
+<div className="mb-8">
+  <div className="border-t-2 border-[#3C4C8F] mb-2"></div>
+  <h3 className="text-lg font-semibold mb-4 text-gray-700">BUS</h3>
+  
+  {/* Encabezados */}
+  <div className="grid grid-cols-6 gap-2 text-center font-medium text-sm text-white">
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md"># Bus</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Bus</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Cooperativa</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Placa</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Chofer</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Ruta</span>
+  </div>
+  
+  {/* Datos dinámicos */}
+  <div className="grid grid-cols-6 gap-2 mt-2 text-center text-gray-700 text-sm">
+    <span>{busDetails.busNumber}</span>
+    <span>{busDetails.bus}</span>
+    <span>{busDetails.cooperative}</span>
+    <span>{busDetails.plate}</span>
+    <span>{busDetails.driver}</span>
+    <span>{busDetails.route}</span>
+  </div>
+</div>
+
 
       {/* Sección Datos del Comprador */}
-      <div className="mb-8">
-        <div className="border-t-2 border-[#3C4C8F] mb-2"></div>
-        <h3 className="text-lg font-semibold mb-2 text-gray-700">Datos del comprador</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-white border-b-2 border-[#ffffff] pb-2">
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Cedula</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Nombre</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Apellido</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Edad</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Genero</span>
-        </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 mt-2 text-center">
-          <span>{buyerDetails.cedula}</span>
-          <span>{buyerDetails.nombre}</span>
-          <span>{buyerDetails.apellido}</span>
-          <span>{buyerDetails.edad}</span>
-          <span>{buyerDetails.genero}</span>
-        </div>
-      </div>
+<div className="mb-8">
+  <div className="border-t-2 border-[#3C4C8F] mb-2"></div>
+  <h3 className="text-lg font-semibold mb-4 text-gray-700">Datos del comprador</h3>
 
-      {/* Sección de Asientos */}
-      <div>
-        <div className="border-t-2 border-[#3C4C8F] mb-2"></div>
-        <h3 className="text-lg font-semibold mb-2 text-gray-700">Asientos</h3>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-white border-b-2 border-[#ffffff] pb-2">
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium"># Asiento</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Tipo</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Codigo</span>
-          <span className="bg-[#3C4C8F] px-2 py-1 rounded-lg text-center font-medium">Valor</span>
-        </div>
-        {seatDetails.map((seat, index) => (
-          <div
-            key={index}
-            className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-2 text-center"
-          >
-            <span>{seat.seat}</span>
-            <span>{seat.type}</span>
-            <span>{seat.code}</span>
-            <span>{seat.value}</span>
-          </div>
-        ))}
-      </div>
+  {/* Encabezados */}
+  <div className="grid grid-cols-5 gap-2 text-center font-medium text-sm text-white">
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Cédula</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Nombre</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Apellido</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Edad</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Género</span>
+  </div>
+
+  {/* Datos dinámicos */}
+  <div className="grid grid-cols-5 gap-2 mt-2 text-center text-gray-700 text-sm">
+    <span>{buyerDetails.cedula}</span>
+    <span>{buyerDetails.nombre}</span>
+    <span>{buyerDetails.apellido}</span>
+    <span>{buyerDetails.edad}</span>
+    <span>{buyerDetails.genero}</span>
+  </div>
+</div>
+
+     {/* Sección de Asientos */}
+<div className="mb-8">
+  <div className="border-t-2 border-[#3C4C8F] mb-2"></div>
+  <h3 className="text-lg font-semibold mb-4 text-gray-700">Asientos</h3>
+
+  {/* Encabezados */}
+  <div className="grid grid-cols-4 gap-2 text-center font-medium text-sm text-white">
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md"># Asiento</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Tipo</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Código</span>
+    <span className="bg-[#3C4C8F] px-1 py-1 rounded-md">Valor</span>
+  </div>
+
+  {/* Datos dinámicos */}
+  {seatDetails.map((seat, index) => (
+    <div
+      key={index}
+      className="grid grid-cols-4 gap-2 mt-2 text-center text-gray-700 text-sm"
+    >
+      <span>{seat.seat}</span>
+      <span>{seat.type}</span>
+      <span>{seat.code}</span>
+      <span>{seat.value}</span>
+    </div>
+  ))}
+</div>
+
     </div>
   );
 };

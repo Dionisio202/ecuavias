@@ -20,7 +20,6 @@ import GestionFrecuencias from "./templates/Frecuencias";
 import GestionParadas from "./templates/Paradas";
 import Pagos from "./templates/Pagos";
 import GestionBoletos from "./templates/Boletos";
-import SeleccionBoletosPage from "./templates/SBoletos";
 import ReservaBoletos from "./templates/RBoletos";
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);

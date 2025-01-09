@@ -23,7 +23,7 @@ const BoletosPage: React.FC = () => {
       ruta: "Ambato-Quito",
       numeroBus: 21,
       fecha: "2023-04-02",
-      estado: "Disponible",
+      estado: "Ok",
     },
     {
       id: 2,
@@ -33,7 +33,7 @@ const BoletosPage: React.FC = () => {
       ruta: "Quito-Guayaquil",
       numeroBus: 15,
       fecha: "2023-05-10",
-      estado: "Reservado",
+      estado: "Cancelado",
     },
   ];
 
@@ -160,9 +160,9 @@ const BoletosPage: React.FC = () => {
                   <td className="px-4 py-2">
                     <span
                       className={`px-2 py-1 rounded ${
-                        boleto.estado === "Disponible"
+                        boleto.estado === "Ok"
                           ? "bg-green-500 text-black"
-                          : "bg-yellow-500 text-black"
+                          : "bg-red-500 text-black"
                       }`}
                     >
                       {boleto.estado}

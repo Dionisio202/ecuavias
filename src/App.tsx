@@ -19,6 +19,8 @@ import GestionBuses from "./templates/Buses";
 import GestionFrecuencias from "./templates/Frecuencias";
 import GestionParadas from "./templates/Paradas";
 import Pagos from "./templates/Pagos";
+import GestionBoletos from "./templates/Boletos";
+import ReservaBoletos from "./templates/RBoletos";
 const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const [session, setSession] = useState<any>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -135,6 +137,22 @@ function App() {
           element={
             <ProtectedRoute>
               <Pagos/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/GestionBoletos"
+          element={
+            <ProtectedRoute>
+              <GestionBoletos/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/SeleccionBoletos"
+          element={
+            <ProtectedRoute>
+              <ReservaBoletos/>
             </ProtectedRoute>
           }
         />

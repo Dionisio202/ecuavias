@@ -6,12 +6,13 @@ import UserIcon from "../assets/useri.svg";
 import BusIcon from "../assets/busi.svg";
 import ReservationIcon from "../assets/reservai.svg";
 import PaymentIcon from "../assets/paymentIcon.svg";
-
+import TicketIcon from "../assets/TicketIcon.svg";
 const Sidebar: React.FC<{
   isSidebarOpen: boolean;
   setIsSidebarOpen: (open: boolean) => void;
 }> = ({ isSidebarOpen, setIsSidebarOpen }) => {
-  const [selected, setSelected] = useState<string>("");
+    const [selected, setSelected] = useState<string>("");
+
 
   // Configuración dinámica del menú con íconos personalizados
   const menuItems = [
@@ -39,7 +40,18 @@ const Sidebar: React.FC<{
       key: "Reservaciones",
       icon: <img src={ReservationIcon} alt="Reservaciones" className="w-6 h-6" />,
       subItems: [
-        { title: "Lista de Reservaciones", to: "/ListaReservaciones" },
+        { title: "Lista de Reservaciones", to: "/ListaReservaciones" },        
+      ],
+    },
+    {
+      title: "Boletos",
+      key: "Boletos",
+      icon: (
+        <img src={TicketIcon} alt="Reservaciones" className="w-6 h-6" />
+      ), // Ícono personalizado
+      subItems: [        
+        { title: "Boletos", to: "/GestionBoletos" },
+        { title: "Selección de boletos", to: "/SeleccionBoletos" },
       ],
     },
     {

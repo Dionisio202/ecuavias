@@ -55,11 +55,15 @@ const ReservaBoletos: React.FC = () => {
       window.location.href = "/GestionBoletos"; // Cambia esta ruta si es necesario
     }, 2000);
   };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="flex">
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
 
       {/* Contenido principal */}
       <div className="ml-1 flex-1 p-6">

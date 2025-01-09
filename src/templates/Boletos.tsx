@@ -70,10 +70,14 @@ const BoletosPage: React.FC = () => {
       setBoletos(filteredBoletos);
     }
   };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="flex">
-      <Sidebar />
+    <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
       <div className="ml-1 flex-1 p-6">
         <div className="flex justify-between items-center bg-gray-900 text-white p-4 rounded-lg mb-4">
           <h1 className="text-xl font-bold">Ecuavías</h1>

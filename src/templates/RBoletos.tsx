@@ -27,7 +27,7 @@ const ReservaBoletos: React.FC = () => {
     { id: 2, nombre: "Bus 2" },
   ];
 
-  const [asientos, setAsientos] = useState<Asiento[]>(
+  const [asientos] = useState<Asiento[]>(
     Array.from({ length: 40 }, (_, i) => ({
       id: i + 1,
       ocupado: i % 5 === 0, // Simular algunos asientos ocupados
@@ -37,7 +37,7 @@ const ReservaBoletos: React.FC = () => {
   const [rutaSeleccionada, setRutaSeleccionada] = useState<number | null>(null);
   const [busSeleccionado, setBusSeleccionado] = useState<number | null>(null);
   const [asientosSeleccionados, setAsientosSeleccionados] = useState<number[]>([]);
-  const [pagoCompletado, setPagoCompletado] = useState(false);
+  const [, setPagoCompletado] = useState(false);
 
   const toggleSeleccionAsiento = (id: number) => {
     if (asientosSeleccionados.includes(id)) {

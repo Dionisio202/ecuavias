@@ -63,15 +63,21 @@ const GestionParadas: React.FC = () => {
   };
 
   const headers = ["Nombre", "Estado"];
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden">
       <Preloader />
-      <Sidebar />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
 
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Header */}
-        <Header />
+        <Header
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle del Sidebar
+        />
         {isModalOpen && (
           <StopEditor
             initialStop={editingStop || undefined}

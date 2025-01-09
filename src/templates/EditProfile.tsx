@@ -24,6 +24,7 @@ const EditProfile: React.FC = () => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -51,12 +52,18 @@ const EditProfile: React.FC = () => {
       <Preloaded />
 
       {/* ===== Sidebar Component ===== */}
-      <SideBar />
+      <SideBar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
+
 
       {/* ===== Content Area ===== */}
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* ===== Header Component ===== */}
-        <Header />
+        <Header
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle del Sidebar
+        />
 
         {/* ===== Main Content ===== */}
         <main>

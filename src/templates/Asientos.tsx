@@ -63,6 +63,7 @@ const Asiento: React.FC = () => {
       ],
     },
   ]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedRole, setSelectedRole] = useState("Todas");
@@ -87,12 +88,17 @@ const Asiento: React.FC = () => {
       <Preloader />
 
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
 
       {/* Main Content Area */}
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Condicional para ocultar Header */}
-        {!isAdding && !editingSeat && !viewingSeat && <Header />}
+        {!isAdding && !editingSeat && !viewingSeat &&  <Header
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle del Sidebar
+        />}
 
         {/* Layout de Asientos a Pantalla Completa */}
         {isAdding && (

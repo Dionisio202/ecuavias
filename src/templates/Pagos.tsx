@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../shared/Header";
 import Sidebar from "../shared/SideBar";
 import Preloader from "../shared/Preloaded";
@@ -27,19 +27,27 @@ const busData = {
     { seat: "9", type: "Normal", code: "E03", value: "$1.5" },
     { seat: "10", type: "Normal", code: "E04", value: "$1.5" },
   ];
+
 const Pagos: React.FC = () => {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Preloader */}
       <Preloader />
 
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
 
       {/* Main Content Area */}
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Header */}
-        <Header />
+        <Header
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle del Sidebar
+        />
 
         {/* Main Content */}
         <main className="p-6 bg-gray-100 min-h-screen space-y-6 mb-8">

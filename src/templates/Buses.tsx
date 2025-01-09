@@ -61,6 +61,7 @@ const GestionBuses: React.FC = () => {
   const [selectedCooperative, setSelectedCooperative] = useState("Todas");
   const [editingBus, setEditingBus] = useState<Bus | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const filteredBuses = buses.filter((bus) => {
     const searchMatch =
@@ -124,11 +125,17 @@ const GestionBuses: React.FC = () => {
   return (
     <div className="flex h-screen overflow-hidden">
       <Preloader />
-      <Sidebar />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
 
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Header */}
-        <Header />
+        <Header
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle del Sidebar
+        />
+
         {isModalOpen && (
           <BusEditor
             initialBus={editingBus || undefined}

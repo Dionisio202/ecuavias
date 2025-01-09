@@ -73,17 +73,24 @@ const GestionFrecuencias: React.FC = () => {
   const handleDeleteFrequency = (selectedIds: number[]) => {
     setFrequencies((prev) => prev.filter((frequency) => !selectedIds.includes(frequency.id!)));
   };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const headers = ["Nombre", "Salida", "Destino", "Estado", "Valor"];
 
   return (
     <div className="flex h-screen overflow-hidden">
       <Preloader />
-      <Sidebar />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
 
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Header */}
-        <Header />
+        <Header
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle del Sidebar
+        />
+
         {isModalOpen && (
           <FrequencyEditor
             initialFrecuencia={editingFrequency || undefined}

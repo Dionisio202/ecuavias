@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Header from "../shared/Header";
 import SideBar from "../shared/SideBar";
 import Preloaded from "../shared/Preloaded";
@@ -6,18 +6,27 @@ import User06 from "../assets/user-06.png";
 import Cover from "../assets/cover-01.png";
 
 const Profile: React.FC = () => {
+  // Estado para controlar la visibilidad del Sidebar
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* ===== Preloader Component ===== */}
       <Preloaded />
 
       {/* ===== Sidebar Component ===== */}
-      <SideBar />
+      <SideBar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
 
       {/* ===== Content Area ===== */}
-      <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
+      <div className="relative flex flex-1 flex-col">
+
         {/* ===== Header Component ===== */}
-        <Header />
+        <Header
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle del Sidebar
+        />
 
         {/* ===== Main Content ===== */}
         <main>

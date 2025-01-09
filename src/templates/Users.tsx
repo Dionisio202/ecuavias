@@ -77,6 +77,7 @@ const Users: React.FC = () => {
     }
     setIsModalOpen(false);
   };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -84,12 +85,18 @@ const Users: React.FC = () => {
       <Preloader />
 
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
 
       {/* Main Content Area */}
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         {/* Header */}
-        <Header />
+        <Header
+          toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} // Toggle del Sidebar
+        />
+
 
         {/* Main Content */}
         <main className="p-6 bg-gray-100 min-h-screen">

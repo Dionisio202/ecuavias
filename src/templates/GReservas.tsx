@@ -95,11 +95,15 @@ const Reservaciones: React.FC = () => {
     }
     setModalOpen(false);
   };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
     <div className="flex h-screen overflow-hidden">
       <Preloader />
-      <Sidebar />
+      <Sidebar
+        isSidebarOpen={isSidebarOpen} // Pasamos el estado al Sidebar
+        setIsSidebarOpen={setIsSidebarOpen} // Función para actualizar el estado
+      />
       <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
         <main className="p-6 bg-gray-100 min-h-screen">
           {/* Header y Filtros */}

@@ -6,6 +6,7 @@ import UserIcon from "../assets/useri.svg";
 import BusIcon from "../assets/busi.svg";
 import ReservationIcon from "../assets/reservai.svg";
 import PaymentIcon from "../assets/paymentIcon.svg";
+import TicketIcon from "../assets/TicketIcon.svg";
 const Sidebar = () => {
   const [sidebarToggle, setSidebarToggle] = useState(false);
   const [selected, setSelected] = useState<string>("");
@@ -38,7 +39,18 @@ const Sidebar = () => {
         <img src={ReservationIcon} alt="Reservaciones" className="w-6 h-6" />
       ), // Ícono personalizado
       subItems: [
-        { title: "Lista de Reservaciones", to: "/ListaReservaciones" },
+        { title: "Lista de Reservaciones", to: "/ListaReservaciones" },        
+      ],
+    },
+    {
+      title: "Boletos",
+      key: "Boletos",
+      icon: (
+        <img src={TicketIcon} alt="Reservaciones" className="w-6 h-6" />
+      ), // Ícono personalizado
+      subItems: [        
+        { title: "Boletos", to: "/GestionBoletos" },
+        { title: "Selección de boletos", to: "/SeleccionBoletos" },
       ],
     },
     {
